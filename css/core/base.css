@@ -1,0 +1,15 @@
+/* 重置默认样式 */
+body {
+    margin: 0; /* 去掉页面默认的白边 */
+    font-family: 'Arial', sans-serif; /* 使用Arial字体 */
+    background-color: #f8f9fa; /* 浅灰色背景 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 100vh; /* 全屏高度 */
+}
+
+h1 {
+    color: #333; /* 深灰色文字 */
+    font-size: 3rem; /* 超大字号 */
+}

@@ -1,0 +1,227 @@
+/*
+ * css/components/navbar.css - 美感升级版
+ */
+
+/* 导航栏基础样式 */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  /* 增加左右内边距，提供呼吸空间 */
+  height: 60px;
+  /* 略微增加高度，提升大气感 */
+  background-color: #ffffff;
+  /* 柔和的底部阴影，避免生硬感 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  font-family: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+  /* 现代无衬线字体 */
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+/* 导航项通用样式 */
+.nav-item {
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  /* 柔和的深灰色，比纯黑更舒适 */
+  margin-right: 28px;
+  /* 增加导航项间距，营造宽松感 */
+  white-space: nowrap;
+  transition: color 0.2s ease, transform 0.1s ease-out;
+  /* 添加微动效果 */
+  padding: 5px 0;
+  /* 垂直方向的点击区域 */
+}
+
+/* 导航链接（可点击的备课/Agenda） */
+.navbar-link {
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  /* 用于下划线动画 */
+}
+
+.navbar-link:hover {
+  color: #3b82f6;
+  /* 更活泼的蓝色，吸引注意力 */
+  transform: translateY(-1px);
+  /* 悬停时上浮一点点 */
+}
+
+/* 导航活动链接样式（当前页面） */
+.navbar-link.active {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* 动态下划线效果 */
+.navbar-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  /* 离文字底部一点距离 */
+  width: 100%;
+  height: 2px;
+  /* 下划线粗细 */
+  background-color: #3b82f6;
+  border-radius: 1px;
+  animation: underline-grow 0.3s forwards;
+  /* 下划线动画 */
+}
+
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* 静态导航项（如“工具”），移除点击和悬停效果 */
+.static-item {
+  cursor: default;
+  opacity: 0.8;
+  /* 稍微透明，区分链接 */
+}
+
+.static-item:hover {
+  color: #555;
+  /* 保持原色 */
+  transform: none;
+  /* 移除悬停上浮 */
+}
+
+
+/* 家图标按钮样式 */
+.home-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  /* 略微加大尺寸 */
+  height: 44px;
+  border-radius: 50%;
+  /* 圆形按钮 */
+  background-color: transparent;
+  color: #3b82f6;
+  /* 与链接颜色保持一致 */
+  font-size: 22px;
+  /* 更醒目的图标大小 */
+  margin-right: 18px;
+  /* 与菜单按钮的间距 */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease-out;
+  text-decoration: none;
+  flex-shrink: 0;
+  /* 防止被挤压 */
+}
+
+.home-icon-button:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+  /* 更柔和的蓝色背景 */
+  color: #2563eb;
+  /* 悬停时颜色加深 */
+  transform: scale(1.05);
+  /* 悬停时轻微放大 */
+}
+
+.home-icon-button.active {
+  color: #2563eb;
+  /* 活跃时的深蓝色 */
+  background-color: rgba(59, 130, 246, 0.15);
+  /* 活跃时背景更明显 */
+}
+
+
+/* 菜单切换按钮样式 (三点图标) */
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 18px;
+  /* 图标大小 */
+  color: #777;
+  /* 略深一点的灰色，提供对比 */
+  cursor: pointer;
+  padding: 10px;
+  /* 增加点击区域 */
+  border-radius: 6px;
+  /* 略带圆角的矩形 */
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease-out;
+  margin-right: 28px;
+  /* 与“备课”标题的间距，与 nav-item 间距一致 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.menu-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  /* 柔和的悬停背景 */
+  color: #555;
+  transform: scale(1.05);
+  /* 轻微放大 */
+}
+
+.menu-toggle.active {
+  color: #3b82f6;
+  /* 侧边栏打开时，菜单图标变色 */
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+
+/* 右侧时间显示 */
+.usage-time {
+  display: inline-flex;
+  /* 确保内容居中 */
+  align-items: center;
+  padding: 5px 12px;
+  /* 调整内边距 */
+  background-color: #e6f7ed;
+  /* 浅绿色背景，更清新 */
+  border-radius: 18px;
+  /* 更大的圆角，胶囊状 */
+  font-size: 14px;
+  color: #4a7d4a;
+  /* 搭配背景的深绿色 */
+  margin-right: 20px;
+  min-width: 40px;
+  /* 确保有最小宽度 */
+  text-align: center;
+  transition: width 0.3s ease, background-color 0.2s ease;
+}
+
+.usage-time span {
+  font-size: 18px;
+  /* 略大一点的表情，更活泼 */
+  margin: 0 2px;
+  line-height: 1;
+}
+
+.current-time {
+  font-size: 15px;
+  /* 略微增大字体 */
+  color: #666;
+  /* 柔和的灰色 */
+  font-weight: 500;
+  min-width: 60px;
+  /* 确保时间有足够的空间 */
+  text-align: right;
+}

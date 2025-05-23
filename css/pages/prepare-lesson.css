@@ -1,0 +1,481 @@
+/* prepare-lesson.css */
+
+/* 主要内容区域的整体布局 */
+.prepare-lesson-main {
+    padding: 16px;
+    margin-left: 0;
+    /* 初始时主内容无左边距 */
+    transition: margin-left 0.3s ease-in-out;
+    /* 侧边栏弹出时平滑移动 */
+    /* *** 重点修改：显著增加顶部边距，为固定导航栏留出足够空间 *** */
+    /* 假设导航栏高度大约为60-70px，这里给100px是为了更安全地避开导航栏和问候语 */
+    margin-top: 100px;
+}
+
+/* 当侧边栏激活时，推动主内容区 */
+.sidebar.active+.prepare-lesson-main {
+    margin-left: 200px;
+    /* 侧边栏宽度 */
+}
+
+/* 新增：问候语容器样式 */
+.greeting-container {
+    text-align: center;
+    /* 居中显示问候语 */
+    margin-bottom: 10px;
+    /* 与下方标题的间距 */
+    font-size: 1.5em;
+    /* 问候语字体大小 */
+    color: #555;
+    /* 问候语颜色 */
+    font-weight: bold;
+    /* 确保问候语容器在主内容区内部，并正确定位 */
+    /* 移除掉一些可能冲突的定位，让它自然流淌在 main 里 */
+}
+
+.greeting-container #greeting-text {
+    color: #3498db;
+    /* 让“中午好Peggy”更醒目 */
+    margin-right: 10px;
+}
+
+.greeting-container #greeting-time {
+    font-size: 0.8em;
+    /* 时间小一点 */
+    color: #777;
+}
+
+h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ========================================= */
+/* 核心：艺术感网格布局的 CSS */
+/* ========================================= */
+
+.lesson-cards-grid {
+    display: grid;
+    /* 定义12列的网格，每列宽度相等，这样可以灵活组合 */
+    /* 想象成一个12格宽的画板，我们可以把小方块放在任意位置和宽度 */
+    grid-template-columns: repeat(12, 1fr);
+    /* 定义行的最小高度，auto表示内容多时自动撑开 */
+    /* 每一行至少80像素高，如果内容太多，它会自动变高 */
+    grid-auto-rows: minmax(80px, auto);
+    /* 卡片之间的间距，模拟画作中方块间的白色线条 */
+    gap: 10px;
+    padding: 16px;
+    /* 背景色可以与画作的背景色相近，保持整体和谐 */
+    background: #fcf7f7;
+    /* 接近非常浅的灰色或白色 */
+    border-radius: 0;
+    /* 移除圆角，让块更方正，像画作中的矩形 */
+    box-shadow: none;
+    /* 移除阴影，保持平面感 */
+}
+
+.lesson-card {
+    /* 默认背景色（“开灯”状态），纯白色，非常明亮 */
+    background: #ffffff;
+    border-radius: 0;
+    /* 移除圆角 */
+    padding: 15px;
+    /* 内部填充 */
+    /* 模仿画作中方块的边缘感，可以用非常浅的边框或内阴影 */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+    /* 轻微的内部阴影，模拟画作中颜色的层次感 */
+    border: 1px solid #eee;
+    /* 非常淡的边框，让每个块有清晰的边界 */
+
+    display: flex;
+    /* 使用Flexbox来布局内部元素（标题），让它们垂直居中 */
+    flex-direction: column;
+    align-items: center;
+    /* 水平居中内容 */
+    justify-content: center;
+    /* 垂直居中内容 */
+    text-align: center;
+    /* 文本居中 */
+
+    cursor: pointer;
+    /* 鼠标悬停时显示手型，表示可以点击 */
+    transition: all 0.3s ease;
+    /* 所有样式变化都平滑过渡，看起来更自然 */
+    position: relative;
+    /* 用于可能的额外元素定位 */
+    overflow: hidden;
+    /* 防止内容溢出卡片外部 */
+}
+
+/* 卡片填写完成后的样式（“灭灯”状态）：当用户填完信息后 */
+.lesson-card.completed {
+    background: #e0e0e0;
+    /* 变暗的背景色，模拟“灭灯” */
+    color: #888;
+    /* 文字颜色也变暗，但不要太暗，保持可读性 */
+    border-color: #d0d0d0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* 内部阴影加深，增加“已完成”的感觉 */
+}
+
+/* 标题样式：大、突出、醒目、居中 */
+.lesson-card h2 {
+    font-size: 1.5em;
+    /* 标题字体大一点，更突出 */
+    color: #3498db;
+    /* 一个醒目的蓝色，你可以选择其他颜色 */
+    margin: 0;
+    /* 移除默认外边距，以便精确控制居中 */
+    text-align: center;
+    /* 确保标题文本水平居中 */
+    font-weight: bold;
+    /* 加粗，使其更醒目 */
+    line-height: 1.2;
+    /* 调整行高 */
+}
+
+/* 已填写内容的样式：在卡片变暗后显示已填写内容 */
+.lesson-card .card-content-display {
+    font-size: 0.9em;
+    color: #c9c4c4;
+    margin-top: 10px;
+    word-break: break-all;
+    /* 防止长文本溢出 */
+    display: none;
+    /* 默认隐藏 */
+}
+
+.lesson-card.completed .card-content-display {
+    display: block;
+    /* 完成后显示 */
+}
+
+/* ========================================= */
+/* 为每个卡片定义其在网格中的位置和大小 */
+/* 这些值需要根据你想要的效果进行调整！ */
+/* 这部分是实现“艺术排列”的关键，通过 grid-column 和 grid-row 来决定每个卡片在12列网格中的起始位置和占据的列/行数 */
+/* ========================================= */
+
+.lesson-card[data-field="courseName"] {
+    grid-column: 1 / span 5;
+    /* 从第1列开始，向右占据5列的宽度 */
+    grid-row: 1 / span 2;
+    /* 从第1行开始，向下占据2行的高度 */
+    background-color: #f7e0d3;
+    /* 示例：淡粉色，模仿画作中的颜色 */
+}
+
+.lesson-card[data-field="studentProfile"] {
+    grid-column: 6 / span 4;
+    /* 从第6列开始，向右占据4列 */
+    grid-row: 1 / span 3;
+    /* 向下占据3行 */
+    background-color: #d3f9d8;
+    /* 示例：淡绿色 */
+}
+
+.lesson-card[data-field="lessonTime"] {
+    grid-column: 10 / span 3;
+    /* 从第10列开始，向右占据3列 */
+    grid-row: 1 / span 2;
+    /* 向下占据2行 */
+    background-color: #fce8a8;
+    /* 示例：淡黄色 */
+}
+
+.lesson-card[data-field="lessonCount"] {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+    /* 向下占据1行 */
+    background-color: #e0f2f7;
+    /* 示例：淡蓝色 */
+}
+
+.lesson-card[data-field="duration"] {
+    grid-column: 3 / span 3;
+    grid-row: 3 / span 1;
+    background-color: #e6ccf7;
+    /* 示例：淡紫色 */
+}
+
+.lesson-card[data-field="requirements"] {
+    grid-column: 1 / span 5;
+    grid-row: 4 / span 3;
+    /* 向下占据3行 */
+    background-color: #f0e68c;
+    /* 示例：更亮的黄色 */
+}
+
+.lesson-card[data-field="outputFormat"] {
+    grid-column: 6 / span 4;
+    grid-row: 4 / span 2;
+    /* 向下占据2行 */
+    background-color: #d8bfd8;
+    /* 示例：浅紫色 */
+}
+
+.lesson-card[data-field="fileUpload"] {
+    grid-column: 10 / span 3;
+    grid-row: 3 / span 4;
+    /* 向下占据4行，形成较高的块 */
+    background-color: #d9ead3;
+    /* 示例：浅橄榄绿 */
+}
+
+/* ========================================= */
+/* 文件上传卡片特殊样式 */
+/* ========================================= */
+.file-upload-card {
+    /* 它的 grid-column 和 grid-row 已在上方定义 */
+    /* 默认背景色和完成状态的背景色，可以单独设置 */
+    background-color: #ffffff;
+    /* 确保文件上传卡片初始是亮的 */
+    border: 1px solid #eee;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.file-upload-card.completed {
+    background-color: #e0e0e0;
+    /* 文件上传完成后变暗 */
+    border-color: #d0d0d0;
+}
+
+.file-upload-card h2 {
+    /* 文件上传卡片的标题可能需要调整，使其不完全覆盖拖拽区 */
+    margin-bottom: 15px;
+    /* 标题与拖拽区之间留出空间 */
+}
+
+.file-upload-card .upload-area {
+    border: 2px dashed #b0b0b0;
+    /* 虚线颜色更柔和 */
+    border-radius: 5px;
+    padding: 15px;
+    /* 调整内边距 */
+    margin-top: 5px;
+    /* 与标题的间距 */
+    cursor: pointer;
+    background-color: #fefefe;
+    /* 拖拽区背景色 */
+    transition: background-color 0.3s ease;
+    display: flex;
+    /* 内部flex布局，使内容居中 */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    /* 确保拖拽区有最小高度 */
+}
+
+.file-upload-card .upload-area:hover {
+    background-color: #f0f0f0;
+    /* 鼠标悬停时背景变浅 */
+}
+
+.file-upload-card .file-input {
+    display: none;
+    /* 隐藏原始文件输入框，我们用 JS 触发点击 */
+}
+
+.file-upload-card .upload-area p {
+    margin: 5px 0;
+    color: #777;
+    font-size: 0.8em;
+}
+
+.file-upload-card .upload-formats {
+    font-size: 0.7em;
+    color: #999;
+}
+
+.uploaded-files {
+    margin-top: 10px;
+    text-align: left;
+    max-height: 80px;
+    /* 控制上传文件列表高度 */
+    overflow-y: auto;
+    /* 允许滚动，如果文件太多 */
+    padding-right: 5px;
+    /* 防止滚动条覆盖内容 */
+}
+
+.uploaded-files div {
+    background: #f0f0f0;
+    /* 上传文件项背景 */
+    padding: 4px 8px;
+    /* 调整内边距 */
+    border-radius: 3px;
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8em;
+    color: #555;
+    word-break: break-all;
+    /* 防止长文件名溢出卡片 */
+}
+
+.uploaded-files .remove-file {
+    color: #dc3545;
+    /* 删除按钮的颜色 */
+    cursor: pointer;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+
+/* ========================================= */
+/* 模态框（弹窗）的 CSS 样式 */
+/* ========================================= */
+.modal {
+    display: none;
+    /* 默认隐藏 */
+    position: fixed;
+    /* 固定定位，覆盖整个屏幕 */
+    z-index: 1000;
+    /* 确保在最顶层 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* 如果内容过多允许滚动 */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* 半透明黑色背景 */
+    backdrop-filter: blur(5px);
+    /* 背景模糊效果 */
+    align-items: center;
+    /* 垂直居中 */
+    justify-content: center;
+    /* 水平居中 */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    /* 弹窗内容的背景色 */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    /* 弹窗宽度 */
+    max-width: 500px;
+    /* 最大宽度 */
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+    /* 弹窗出现动画 */
+}
+
+/* 弹窗出现动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-button {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+}
+
+#modalTitle {
+    text-align: center;
+    color: #3498db;
+    /* 与卡片标题颜色一致 */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.modal-body {
+    margin-bottom: 20px;
+}
+
+.modal-body input,
+.modal-body textarea {
+    width: calc(100% - 20px);
+    /* 减去padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    /* 确保padding和border不增加宽度 */
+}
+
+.modal-body textarea {
+    resize: vertical;
+    /* 允许垂直调整大小 */
+    min-height: 100px;
+}
+
+.modal-footer {
+    text-align: right;
+}
+
+#modalSaveBtn {
+    padding: 10px 20px;
+    background-color: #6a9acb;
+    /* 与保存按钮颜色一致 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#modalSaveBtn:hover {
+    background-color: #5a8bbd;
+}
+
+/* ========================================= */
+/* 保存课程按钮 */
+/* ========================================= */
+.save-lesson-btn {
+    display: block;
+    /* 让按钮独占一行 */
+    width: 180px;
+    /* 按钮宽度可以调整 */
+    padding: 10px 18px;
+    background-color: #6a9acb;
+    /* 更柔和的蓝色 */
+    color: white;
+    /* 白色文字 */
+    border: none;
+    /* 无边框 */
+    border-radius: 5px;
+    /* 按钮圆角 */
+    font-size: 1em;
+    cursor: pointer;
+    /* 鼠标悬停显示手型 */
+    margin: 40px auto 20px auto;
+    /* 居中显示，上下间距 */
+    transition: background-color 0.3s ease;
+    /* 背景色变化平滑过渡 */
+}
+
+.save-lesson-btn:hover {
+    background-color: #5a8bbd;
+    /* 鼠标悬停时颜色变深 */
+}

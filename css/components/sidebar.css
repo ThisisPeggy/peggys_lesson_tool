@@ -1,0 +1,273 @@
+/*
+ * css/sidebar.css (修正导航栏高度适配问题)
+ */
+
+/* 侧边栏本体 */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  /* 修正：匹配新的导航栏高度 */
+  left: -200px;
+  width: 200px;
+  height: calc(100% - 60px);
+  /* 修正：匹配新的导航栏高度 */
+  background: #f7f7f7;
+  z-index: 999;
+  /* 略低于导航栏，避免完全遮挡导航栏底部阴影 */
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+/* 侧边栏显示时 */
+.sidebar.active {
+  left: 0;
+}
+
+/* 顶部区域：搜索框容器样式 */
+.top-section {
+  padding: 15px;
+  border-bottom: 1px solid #e0e6ed;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e0e6ed;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.search-icon {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #666;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+  background: transparent;
+}
+
+.search-bar:focus {
+  background: transparent;
+}
+
+/* 主要区域：侧边栏内部标题样式 */
+.main-section {
+  flex: 1;
+  padding: 10px 0;
+}
+
+/* 菜单标题的通用样式 */
+.menu-title {
+  display: flex;
+  /* 确保标题本身也具备flex布局能力 */
+  align-items: center;
+  /* 垂直居中 */
+  color: #333;
+  /* 统一颜色，避免默认蓝色 */
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 15px;
+  /* 增加内边距，提供点击区域 */
+  border-radius: 5px;
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  /* 确保可点击 */
+  text-decoration: none;
+  /* 移除a标签下划线 */
+}
+
+.menu-title:hover {
+  background: #e0e8f0;
+  color: #2c3e50;
+}
+
+
+/* 子菜单（即课程列表）的通用样式 */
+.sub-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* 移除默认外边距 */
+  max-height: 0;
+  /* 默认隐藏 */
+  overflow: hidden;
+  /* 隐藏超出部分 */
+  transition: max-height 0.3s ease-out;
+  /* 动画效果 */
+}
+
+.sub-menu.show {
+  max-height: 500px;
+  /* 足够大的值确保显示所有内容 */
+  /* 可以考虑添加 padding 或 margin-top/bottom 让子菜单与标题保持距离 */
+  padding-top: 5px;
+}
+
+/* 侧边栏课程列表项（Notion风格）*/
+.prepared-lesson-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 12px;
+  margin: 2px 0;
+  cursor: pointer;
+  color: #333;
+  font-size: 15px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  position: relative;
+}
+
+.prepared-lesson-item:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+/* 课程名称文本的样式 */
+.prepared-lesson-item .lesson-item-content {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 5px;
+}
+
+/* 删除按钮（Notion风格的更多选项图标）*/
+.delete-lesson-btn {
+  background: transparent;
+  color: #888;
+  border: none;
+  border-radius: 3px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+  opacity: 0;
+  visibility: hidden;
+  line-height: 1;
+}
+
+/* 仅当鼠标悬停在整个列表项上时，显示删除按钮 */
+.prepared-lesson-item:hover .delete-lesson-btn {
+  opacity: 1;
+  visibility: visible;
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #333;
+}
+
+.delete-lesson-btn:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* “暂无已备课程”的样式 */
+.no-lesson-item {
+  padding: 8px 15px;
+  color: #888;
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* 底部区域：仅图标样式 */
+.sidebar-footer {
+  padding: 12px;
+  border-top: 1px solid #e0e6ed;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  /* 移除这里的 padding 和 display: flex; align-items: center; */
+  /* 让 menu-title 和 menu-header 负责自身的布局和点击区域 */
+  padding: 0;
+  display: block;
+  /* 确保每个菜单项占一行 */
+  border-radius: 5px;
+  transition: background 0.2s;
+  /* 只是背景过渡，不再有直接 hover */
+}
+
+/* **新增：针对 menu-header 的样式，用于处理 padding 和 hover** */
+.menu-item .menu-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  /* 提供点击区域 */
+  border-radius: 5px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.menu-item .menu-header:hover {
+  background: #e0e8f0;
+}
+
+
+.icon-settings,
+.icon-trash {
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+/* 底部菜单项的文本和图标保持在同一行 */
+.sidebar-footer .menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  /* 统一底部菜单项的内边距 */
+}
+
+.sidebar-footer .menu-item:hover {
+  background: #e0e8f0;
+}
+
+.sidebar-footer .menu-item .menu-text {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #2c3e50;
+  vertical-align: middle;
+}
+
+
+/* main内容区样式 (统一为 .main-content，并调整 margin-left) */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: 0;
+  /* 确保 main-content 不会被侧边栏遮挡内容 */
+  margin-top: 60px;
+  /* 向上推开导航栏高度 */
+}
+
+/* 当侧边栏显示时，主内容区向右推开 */
+.sidebar.active+.main-content {
+  margin-left: 200px;
+  /* 与侧边栏宽度 200px 保持一致 */
+}
+
+/* 隐藏和显示类 (如果通过JS添加) */
+.hidden {
+  display: none !important;
+}
